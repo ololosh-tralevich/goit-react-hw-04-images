@@ -1,0 +1,9 @@
+.galleryList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 1em;
+    list-style: none;
+    padding: 0 20px;
+    margin: 0;
+}
