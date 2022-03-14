@@ -1,35 +1,30 @@
-import { Component } from 'react/cjs/react.development';
+import { useState } from 'react';
 
 import styles from './searchbar.module.css';
 
 import searchIcon from '../img/searchIcon.svg';
 
-class Searchbar extends Component {
-  state = {
-    searchWord: '',
-  };
+function Searchbar({onSubmit}) {
+  const [searchWord, setSearchWord] = useState('')
 
-  handleSubmit = ev => {
+  const handleSubmit = ev => {
     ev.preventDefault();
-    this.props.onSubmit(this.state);
+    onSubmit(searchWord);
   };
 
-  handleChange = ev => {
-    this.setState({
-      searchWord: ev.target.value,
-    });
+  const handleChange = ev => {
+    setSearchWord(ev.target.value);
   };
 
-  render() {
     return (
       <header>
-        <form className={styles.searchForm} onSubmit={this.handleSubmit}>
+        <form className={styles.searchForm} onSubmit={handleSubmit}>
           <input
             type="text"
             autoComplete="off"
             autoFocus
             placeholder="Search images..."
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
           <button className={styles.submitButton} type="submit">
             <img
@@ -43,5 +38,5 @@ class Searchbar extends Component {
       </header>
     );
   }
-}
+
 export default Searchbar;
