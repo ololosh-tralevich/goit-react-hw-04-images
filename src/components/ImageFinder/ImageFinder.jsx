@@ -25,7 +25,9 @@ function ImageFinder() {
       return (firstRender.current = false);
     }
     fetchPhoto();
-  }, [searchWord, page]);
+  // }, [searchWord, page]);
+}, [searchWord, page, fetchPhoto]);
+
 
   async function fetchPhoto() {
     setLoading(true);
