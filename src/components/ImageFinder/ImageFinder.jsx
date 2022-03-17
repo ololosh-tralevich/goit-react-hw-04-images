@@ -9,7 +9,7 @@ import Modal from './photoModal/Modal';
 
 import styles from './photoModal/modal.module.css';
 
-function ImageFinder() {
+const ImageFinder = () => {
   const [page, setPage] = useState(1);
   const [photos, setPhotos] = useState([]);
   const [totalData, setTotalData] = useState(0);

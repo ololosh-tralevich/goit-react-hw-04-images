@@ -4,7 +4,7 @@ import styles from './searchbar.module.css';
 
 import searchIcon from '../img/searchIcon.svg';
 
-function Searchbar({ onSubmit }) {
+const Searchbar = ({ onSubmit }) => {
   const [keyWord, setSearchWord] = useState('');
 
   const handleSubmit = ev => {
