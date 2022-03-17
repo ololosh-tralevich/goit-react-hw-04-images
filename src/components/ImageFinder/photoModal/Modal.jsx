@@ -9,11 +9,9 @@ function Modal({ closeModal, children }) {
   useEffect(() => {
     document.addEventListener('keydown', close);
     return () => document.removeEventListener('keydown', close);
-  // }, []);
-}, [close]);
-
-
-  const close = ev => {
+  }, []);
+    
+    const close = ev => {
     if (ev.code === 'Escape') {
       return closeModal();
     }
