@@ -1,41 +1,38 @@
-import { Component } from 'react';
+import { useEffect, memo } from 'react';
 import { createPortal } from 'react-dom';
 
 import styles from './modal.module.css';
 
 const modalRoot = document.getElementById('modal-root');
 
-class Modal extends Component {
-  componentWillMount() {
-    document.addEventListener('keydown', this.close);
-  }
+// class Modal extends Component {
+function Modal({ closeModal, children }) {
+  useEffect(() => {
+    document.addEventListener('keydown', close);
+    return () => document.removeEventListener('keydown', close);
+  }, []);
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.close);
-  }
-
-  close = ev => {
+  const close = ev => {
+    console.log(ev.code);
     if (ev.code === 'Escape') {
-      return this.props.closeModal();
+      return closeModal();
     }
     if (ev.target === ev.currentTarget) {
-      this.props.closeModal();
+      closeModal();
     }
   };
 
-  render() {
-    return createPortal(
-      <div onClick={this.close} className={styles.modalOverlay}>
-        <div className={styles.modal}>
-          <button onClick={this.close} className={styles.closeModalBtn}>
-            X
-          </button>
-          {this.props.children}
-        </div>
-      </div>,
-      modalRoot
-    );
-  }
+  return createPortal(
+    <div onClick={close} className={styles.modalOverlay}>
+      <div className={styles.modal}>
+        <button onClick={close} className={styles.closeModalBtn}>
+          X
+        </button>
+        {children}
+      </div>
+    </div>,
+    modalRoot
+  );
 }
 
-export default Modal;
+export default memo(Modal);

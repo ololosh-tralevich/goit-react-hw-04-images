@@ -9,16 +9,6 @@ import Modal from './photoModal/Modal';
 
 import styles from './photoModal/modal.module.css';
 
-// const timeState = {
-//   page: 1,
-//   photos: [],
-//   totalData: 0,
-//   loading: false,
-//   errMessage: null,
-//   modalOpen: false,
-//   modalContent: '',
-// };
-
 function ImageFinder() {
   const [page, setPage] = useState(1);
   const [photos, setPhotos] = useState([]);
@@ -30,17 +20,8 @@ function ImageFinder() {
   const [searchWord, setSearchWord] = useState('');
 
   const firstRender = useRef(true);
-  // useEffect(() => {
-  // //   const { searchWord, page } = state;
-  //   if (searchWord !== prevsearchWord || page !== prevpage) {
-  //     setLoading(true);
-  //     fetchPhoto();
-  //   }
-  // }, []);
 
   useEffect(() => {
-    //   if (searchWord !== prevsearchWord || page !== prevpage) {
-    // }
     if (firstRender.current) {
       return (firstRender.current = false);
     }
@@ -49,60 +30,47 @@ function ImageFinder() {
 
   async function fetchPhoto() {
     setLoading(true);
+    if (page === 1) {
+      setPhotos([]);
+    }
     try {
       const data = await fetchPhotos(searchWord, page);
-      //   setState(prevState => {
-      //     return {
-      //       photos: [...prevphotos, ...data.hits],
-      //       totalData: data.totalHits,
-      //       loading: false,
-      //     };
-      //   });
       setPhotos(prevState => {
         return [...prevState, ...data.hits];
       });
-      setTotalData(data.total.hits);
+      setTotalData(data.totalHits);
       setLoading(false);
     } catch (err) {
       console.log(err);
-      //   setState({ loading: false, errMessage: err });
       setLoading(false);
       setErrMessage(err);
     }
   }
 
-  const searchPhotos = searchWord => {
-    // setState(prevState => {
-    //   return searchWord !== prevsearchWord && { searchWord, photos: [] };
-    // });
-    // console.log(setSearchWord(prevState => {}))
-    setSearchWord(prevState => {
-      return searchWord !== prevState && { searchWord }, setPhotos([]);
-    });
+  const searchPhotos = keyWord => {
+    setPage(1);
+    setSearchWord(keyWord);
   };
 
   const loadMore = () => {
     setPage(prevState => {
-      return { page: prevState + 1 };
+      return prevState + 1;
     });
   };
 
   const openModal = modalPhoto => {
-    setModalOpen({ modalOpen: true });
-    setModalContent({ modalContent: modalPhoto });
+    setModalOpen(true);
+    setModalContent(modalPhoto);
   };
 
   const closeModal = () => {
-    setModalOpen({ modalOpen: false });
-    setModalContent({ modalContent: '' });
+    setModalOpen(false);
+    setModalContent('');
   };
 
   return (
     <>
-      <Searchbar
-        onSubmit={searchPhotos}
-        //    typeSearchWord={this.typeSearchWord}
-      />
+      <Searchbar onSubmit={searchPhotos} />
       <ImageGallery photoArr={photos} openModal={openModal} />
       {loading && <Loader />}
       {modalOpen && (
@@ -115,8 +83,11 @@ function ImageFinder() {
           />
         </Modal>
       )}
-
-      {totalData > 12 ? <Button loadMore={loadMore} /> : <></>}
+      {totalData > 12 && photos.length !== totalData ? (
+        <Button loadMore={loadMore} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

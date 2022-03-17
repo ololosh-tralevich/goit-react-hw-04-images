@@ -17,7 +17,7 @@ code {
 footer {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 
 button {
