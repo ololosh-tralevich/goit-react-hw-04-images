@@ -5,7 +5,7 @@ import styles from './modal.module.css';
 
 const modalRoot = document.getElementById('modal-root');
 
-export function Modal({ closeModal, children }) {
+ function Modal({ closeModal, children }) {
   useEffect(() => {
     document.addEventListener('keydown', close);
     return () => document.removeEventListener('keydown', close);
@@ -33,4 +33,4 @@ export function Modal({ closeModal, children }) {
   );
 }
 
-// export default memo(Modal);
+export default memo(Modal);
