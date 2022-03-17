@@ -20,37 +20,14 @@ function ImageFinder() {
 
   const firstRender = useRef(true);
 
-//   useEffect(() => {
-//     if (firstRender.current) {
-//       return (firstRender.current = false);
-//     }
-//     fetchPhoto();
-//   // }, [searchWord, page]);
-// }, [searchWord, page]);
-
-
-//   async function fetchPhoto() {
-//     setLoading(true);
-//     if (page === 1) {
-//       setPhotos([]);
-//     }
-//     try {
-//       const data = await fetchPhotos(searchWord, page);
-//       setPhotos(prevState => {
-//         return [...prevState, ...data.hits];
-//       });
-//       setTotalData(data.totalHits);
-//       setLoading(false);
-//     } catch (err) {
-//       console.log(err);
-//       setLoading(false);
-//     }
-//   };
-
   useEffect(() => {
     if (firstRender.current) {
       return (firstRender.current = false);
     }
+    fetchPhoto();
+    // }, [searchWord, page]);
+  }, [searchWord, page]);
+
   async function fetchPhoto() {
     setLoading(true);
     if (page === 1) {
@@ -67,9 +44,7 @@ function ImageFinder() {
       console.log(err);
       setLoading(false);
     }
-  };
-  fetchPhoto()
-}, [searchWord, page]);
+  }
 
   const searchPhotos = keyWord => {
     setPage(1);
