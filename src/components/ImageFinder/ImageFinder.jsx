@@ -43,7 +43,7 @@ function ImageFinder() {
       console.log(err);
       setLoading(false);
     }
-  }
+  };
 
   const searchPhotos = keyWord => {
     setPage(1);
