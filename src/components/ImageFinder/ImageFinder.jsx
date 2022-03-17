@@ -14,7 +14,6 @@ function ImageFinder() {
   const [photos, setPhotos] = useState([]);
   const [totalData, setTotalData] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [errMessage, setErrMessage] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
   const [searchWord, setSearchWord] = useState('');
@@ -43,7 +42,6 @@ function ImageFinder() {
     } catch (err) {
       console.log(err);
       setLoading(false);
-      setErrMessage(err);
     }
   }
 
