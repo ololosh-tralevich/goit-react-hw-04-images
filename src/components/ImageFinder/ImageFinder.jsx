@@ -25,6 +25,7 @@ const ImageFinder = () => {
       return (firstRender.current = false);
     }
     fetchPhoto();
+    //eslint-disable-next-line
   }, [searchWord, page]);
 
   async function fetchPhoto() {
