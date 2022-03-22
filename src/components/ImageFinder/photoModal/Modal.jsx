@@ -1,6 +1,8 @@
 import { useEffect, memo } from 'react';
 import { createPortal } from 'react-dom';
 
+import PropTypes from 'prop-types';
+
 import styles from './modal.module.css';
 
 const modalRoot = document.getElementById('modal-root');
@@ -36,3 +38,7 @@ const Modal = ({ closeModal, children }) => {
 }
 
 export default memo(Modal);
+
+Modal.propTypes = {
+  сloseModal: PropTypes.func.isRequired,
+};
