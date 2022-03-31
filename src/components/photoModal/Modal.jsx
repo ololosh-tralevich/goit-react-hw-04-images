@@ -8,7 +8,6 @@ import styles from './modal.module.css';
 const modalRoot = document.getElementById('modal-root');
 
 const Modal = ({ closeModal, children }) => {
-
   useEffect(() => {
     document.addEventListener('keydown', close);
     return () => document.removeEventListener('keydown', close);
@@ -40,5 +39,5 @@ const Modal = ({ closeModal, children }) => {
 export default memo(Modal);
 
 Modal.propTypes = {
-  сloseModal: PropTypes.func.isRequired,
+  сloseModal: PropTypes.func,
 };

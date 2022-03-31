@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { nanoid } from 'nanoid';
 
 import PropTypes from 'prop-types';
@@ -22,7 +24,7 @@ const ImageGallery = ({ photoArr, openModal }) => {
   return <ul className={styles.galleryList}>{elements}</ul>;
 };
 
-export default ImageGallery;
+export default memo(ImageGallery);
 
 ImageGallery.propTypes = {
   photoArr: PropTypes.arrayOf(

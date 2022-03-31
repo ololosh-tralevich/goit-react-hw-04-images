@@ -1,3 +1,5 @@
+import {memo} from 'react'
+
 import PropTypes from 'prop-types';
 
 import styles from './imageGalleryItem.module.css';
@@ -18,7 +20,7 @@ const ImageGalleryItem = ({ alt, smallImg, openModal, modalPhoto }) => {
   );
 };
 
-export default ImageGalleryItem;
+export default memo(ImageGalleryItem);
 
 ImageGalleryItem.propTypes = {
   smallImg: PropTypes.string.isRequired,
