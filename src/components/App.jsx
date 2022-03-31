@@ -24,8 +24,6 @@ export const App = () => {
 
   const firstRender = useRef(true);
 
-  console.log('render');
-
   useEffect(() => {
     if (firstRender.current) {
       return (firstRender.current = false);
