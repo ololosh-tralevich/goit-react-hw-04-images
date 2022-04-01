@@ -10,12 +10,12 @@ import Modal from './photoModal/Modal';
 import styles from './photoModal/modal.module.css';
 
 export const App = () => {
-  const [loading, setLoading] = useState(false);
   const [searchWord, setSearchWord] = useState('');
   const [imageData, setImageData] = useState({
     page: 1,
     photos: [],
     totalData: 0,
+    loading: false,
   });
   const [modal, setModal] = useState({
     modalOpen: false,
@@ -33,7 +33,10 @@ export const App = () => {
   }, [searchWord, imageData.page]);
 
   async function fetchPhoto() {
-    setLoading(true);
+    setImageData(prevState => {
+      return { ...prevState, loading: true };
+    });
+
     if (imageData.page === 1) {
       setImageData(prevState => {
         return {
@@ -42,6 +45,7 @@ export const App = () => {
         };
       });
     }
+
     try {
       const data = await fetchPhotos(searchWord, imageData.page);
       setImageData(prevState => {
@@ -49,12 +53,14 @@ export const App = () => {
           ...prevState,
           photos: [...prevState.photos, ...data.hits],
           totalData: data.totalHits,
+          loading: false,
         };
       });
-      setLoading(false);
     } catch (err) {
       console.log(err);
-      setLoading(false);
+      setImageData(prevState => {
+        return { ...prevState, loading: false };
+      });
     }
   }
 
@@ -70,7 +76,6 @@ export const App = () => {
 
   const loadMore = useCallback(() => {
     setImageData(prevState => {
-      console.log(prevState);
       return { ...prevState, page: prevState.page + 1 };
     });
   }, []);
@@ -93,7 +98,7 @@ export const App = () => {
     <>
       <Searchbar onSubmit={searchPhotos} />
       <ImageGallery photoArr={imageData.photos} openModal={openModal} />
-      {loading && <Loader />}
+      {imageData.loading && <Loader />}
       {modal.modalOpen && (
         <Modal modalContent={modal.modalContent} closeModal={closeModal}>
           <img
